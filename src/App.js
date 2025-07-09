@@ -9,9 +9,9 @@ import SpreadsheetTable from './comonents/AfterNav.jsx';
 
 function App() {
   return (
-    <div className="App">
+    <div className="mr-3">
       
-      <TopHeader className="fixed top-0"/>
+      <TopHeader />
       <Toolbar />
       
       <SpreadsheetTable />

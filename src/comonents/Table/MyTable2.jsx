@@ -147,7 +147,7 @@ const TableRow = ({ item, focusedCell, setFocusedCell }) => {
           width: '150px',
           minWidth: '30px',
           maxWidth: '150px',
-          borderStyle: 'solid dashed',
+          borderStyle: 'dashed',
           borderColor: 'rgb(246, 246, 246) rgb(203, 203, 203)',
           borderLeftWidth: '2px',
           borderRightWidth: '2px',
@@ -246,7 +246,7 @@ const MyTable = () => {
   return (
     <div
       tabIndex="0"
-      className="w-full max-h-[calc(100vh-180px)] overflow-y-scroll scrollbar-hide will-change-transform"
+      className="w-full max-h-[calc(100vh-180px)] overflow-y scrollbar-hide will-change-transform"
     >
       {data.map((item) => (
         <TableRow

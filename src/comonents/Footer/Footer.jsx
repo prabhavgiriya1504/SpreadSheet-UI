@@ -8,12 +8,12 @@ const TableFooter = () => {
   // Function to handle click on a tab
   const handleTabClick = (tabName) => {
     setActiveTab(tabName);
-    console.log(`Tab clicked: ${tabName}`); // Optional: log which tab was clicked
+    console.log(`Tab clicked: ${tabName}`); // log which tab was clicked
   };
 
   return (
     <div className="w-full flex text-sm bg-[#e6f4ea] border-t border-[#d0e9d6] absolute bottom-0">
-      {/* This div seems to be for alignment with the table's first column, so keep it */}
+      {/* This div is for alignment with the table's first column, */}
       <div className='w-7'></div>
 
       <div
