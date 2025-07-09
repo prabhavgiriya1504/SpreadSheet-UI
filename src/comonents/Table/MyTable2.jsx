@@ -1,24 +1,8 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { useState } from 'react';
 
-interface TableRowProps {
-  item: {
-    id: number;
-    taskName: string;
-    startDate: string;
-    status: string;
-    assignedTo: string;
-    link: string;
-    reporter: string;
-    priority: string;
-    dueDate: string;
-    budget: number | string;
-  };
-  focusedCell: { rowId: number; cellId: string } | null;
-  setFocusedCell: React.Dispatch<React.SetStateAction<{ rowId: number; cellId: string } | null>>;
-}
-
-const TableRow: React.FC<TableRowProps> = ({ item, focusedCell, setFocusedCell }) => {
-  const getStatusClasses = (status: string) => {
+// This component represents a single row in your table
+const TableRow = ({ item, focusedCell, setFocusedCell }) => {
+  const getStatusClasses = (status) => {
     switch (status) {
       case 'In-process':
         return 'bg-[#FFF3D6] text-[#85640B]';
@@ -33,7 +17,7 @@ const TableRow: React.FC<TableRowProps> = ({ item, focusedCell, setFocusedCell }
     }
   };
 
-  const getPriorityClasses = (priority: string) => {
+  const getPriorityClasses = (priority) => {
     switch (priority) {
       case 'High':
         return 'text-[#EF4D44]';
@@ -46,8 +30,9 @@ const TableRow: React.FC<TableRowProps> = ({ item, focusedCell, setFocusedCell }
     }
   };
 
-  const handleCellClick = (e: MouseEvent<HTMLDivElement>, cellId: string) => {
-    setFocusedCell({ rowId: item.id, cellId });
+  // Function to handle cell clicks
+  const handleCellClick = (e, cellId) => {
+    setFocusedCell({ rowId: item.id, cellId: cellId });
     const rect = e.currentTarget.getBoundingClientRect();
     console.log(`Clicked Cell (Row ID: ${item.id}, Cell ID: ${cellId}):`);
     console.log(`  Top: ${rect.top}, Left: ${rect.left}`);
@@ -56,7 +41,8 @@ const TableRow: React.FC<TableRowProps> = ({ item, focusedCell, setFocusedCell }
     console.log('---');
   };
 
-  const isCellFocused = (cellId: string) =>
+  // Helper to check if a cell is focused
+  const isCellFocused = (cellId) =>
     focusedCell && focusedCell.rowId === item.id && focusedCell.cellId === cellId;
 
   return (
@@ -149,9 +135,7 @@ const TableRow: React.FC<TableRowProps> = ({ item, focusedCell, setFocusedCell }
       >
         {item.budget && (
           <span>
-            {typeof item.budget === 'number'
-              ? item.budget.toLocaleString('en-IN')
-              : item.budget}
+            {item.budget.toLocaleString('en-IN')}
             <span className="text-[#AFAFAF] mx-1">₹</span>
           </span>
         )}
@@ -176,16 +160,11 @@ const TableRow: React.FC<TableRowProps> = ({ item, focusedCell, setFocusedCell }
   );
 };
 
-export default TableRow;
-
-
-interface FocusedCell {
-  rowId: number;
-  cellId: string;
-}
-
-const MyTable: React.FC = () => {
-  const [focusedCell, setFocusedCell] = useState<FocusedCell | null>(null);
+// This is your main component that will render the table
+const MyTable = () => {
+  // State to keep track of the currently focused cell
+  // It will store an object like { rowId: 2, cellId: 'startDate' }
+  const [focusedCell, setFocusedCell] = useState(null);
 
   const data = [
     {
@@ -248,7 +227,9 @@ const MyTable: React.FC = () => {
       dueDate: '30-01-2025',
       budget: 2800000,
     },
+    // Dynamically generate blank entries up to ID 100
     ...Array.from({ length: 95 }, (_, index) => ({
+      // Start ID from 6 (since 1-5 are already defined)
       id: index + 6,
       taskName: '',
       startDate: '',
@@ -264,8 +245,8 @@ const MyTable: React.FC = () => {
 
   return (
     <div
-      tabIndex={0}
-      className="w-full max-h-[calc(100vh-180px)] overflow-y-auto hide-scrollbar will-change-transform"
+      tabIndex="0"
+      className="w-full max-h-[calc(100vh-180px)] overflow-y scrollbar-hide will-change-transform"
     >
       {data.map((item) => (
         <TableRow
@@ -279,4 +260,4 @@ const MyTable: React.FC = () => {
   );
 };
 
-export { MyTable };
+export default MyTable;
