@@ -8,18 +8,33 @@ import TableFooter from './comonents/Footer/Footer.jsx';
 import SpreadsheetTable from './comonents/AfterNav.jsx';
 
 function App() {
+ 
   return (
-    <div className="mr-3">
+    <div className="flex flex-col h-screen overflow-hidden">
       
-      <TopHeader />
-      <Toolbar />
+      {/* Top Fixed */}
+      <div className="shrink-0">
+        <TopHeader />
+        <Toolbar />
+
+        <SpreadsheetTable />
+      </div>
+
+      {/* Scrollable Middle (Scrollbar hidden) */}
+      <div className="flex-1 overflow-y-auto hide-scrollbar">
+        <TableHeaderRow />
+        <MyTable />
+      </div>
+
+      {/* Bottom Fixed */}
+      <div className="shrink-0">
+        <TableFooter />
+      </div>
       
-      <SpreadsheetTable />
-      <TableHeaderRow />
-      <MyTable />
-      <TableFooter />      
     </div>
   );
 }
+
+
 
 export default App;
